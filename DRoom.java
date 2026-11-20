@@ -1,10 +1,24 @@
-//double room, shared by two students
 public class DRoom extends Room{
+    //passes the room number to the Room class
     public DRoom(int rno){
-        super(rno,2,50000,"Double");
+        super(rno);
     }
 
-    public String details(){
-        return "Double room "+getRno()+" for 2 students, yearly fee Rs."+getFee();
+    //double room has two beds
+    @Override
+    public int cap(){
+        return 2;
+    }
+
+    //cheaper as the room is shared
+    @Override
+    public double fee(){
+        return 40000;
+    }
+
+    //name of this room type
+    @Override
+    public String type(){
+        return "Double";
     }
 }

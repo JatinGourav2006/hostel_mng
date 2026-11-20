@@ -1,10 +1,24 @@
-//single room, holds one student
 public class SRoom extends Room{
+    //passes the room number to the Room class
     public SRoom(int rno){
-        super(rno,1,80000,"Single");
+        super(rno);
     }
 
-    public String details(){
-        return "Single room "+getRno()+" for 1 student, yearly fee Rs."+getFee();
+    //single room has only one bed
+    @Override
+    public int cap(){
+        return 1;
+    }
+
+    //costs more as there is no sharing
+    @Override
+    public double fee(){
+        return 60000;
+    }
+
+    //name of this room type
+    @Override
+    public String type(){
+        return "Single";
     }
 }

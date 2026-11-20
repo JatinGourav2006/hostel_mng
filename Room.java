@@ -1,26 +1,48 @@
-//base class for all rooms, abstract so only SRoom and DRoom can be created
+import java.util.ArrayList;
+
 public abstract class Room{
     private int rno;
-    private int capacity;//how many students can stay
-    private double fee;//yearly fee
-    private String type;
+    private ArrayList<String> ids=new ArrayList<>();
 
-    public Room(int rno,int capacity,double fee,String type){
+    //sets the room number
+    public Room(int rno){
         this.rno=rno;
-        this.capacity=capacity;
-        this.fee=fee;
-        this.type=type;
     }
 
-    public int getRno(){return rno;}
-    public int getCapacity(){return capacity;}
-    public double getFee(){return fee;}
-    public String getType(){return type;}
+    //how many students can stay, each room type gives its own answer
+    public abstract int cap();
+    //yearly fee, each room type gives its own answer
+    public abstract double fee();
+    //name of the room type like Single or Double
+    public abstract String type();
 
-    //each room type tells how it should be described
-    public abstract String details();
+    //true when no more students can be added
+    public boolean isFull(){
+        return ids.size()>=cap();
+    }
 
+    //adds a student id to the room, RoomMgr checks isFull() before calling this
+    public void add(String id){
+        ids.add(id);
+    }
+
+    //removes a student id when they leave the room
+    public void remove(String id){
+        ids.remove(id);
+    }
+
+    //returns the room number
+    public int getRno(){
+        return rno;
+    }
+
+    //returns how many beds are free
+    public int free(){
+        return cap()-ids.size();
+    }
+
+    //room details in one line
     public String toString(){
-        return rno+" | "+type+" | Capacity: "+capacity+" | Fee: Rs."+fee;
+        return "Room "+rno+" | "+type()+" | Fee: Rs."+fee()+" | Free beds: "+free()+"/"+cap();
     }
 }
